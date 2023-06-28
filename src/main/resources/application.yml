@@ -1,1 +1,10 @@
+server:
+  port: 8081
 
+banking:
+  server:
+    host: 127.0.0.1
+    port: 8888
+    boss-count: 1
+    worker-count: 1
+    backlog: 1
