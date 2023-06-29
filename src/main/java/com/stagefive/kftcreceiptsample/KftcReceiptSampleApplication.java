@@ -1,6 +1,6 @@
 package com.stagefive.kftcreceiptsample;
 
-import com.stagefive.kftcreceiptsample.socket.server.CmsServer;
+import com.stagefive.kftcreceiptsample.socket.cms.server.CmsServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,8 +1,8 @@
-package com.stagefive.kftcreceiptsample.socket.config;
+package com.stagefive.kftcreceiptsample.socket.cms.config;
 
-import com.stagefive.kftcreceiptsample.socket.decoder.CmsClientDecoder;
-import com.stagefive.kftcreceiptsample.socket.encoder.CmsClientEncoder;
-import com.stagefive.kftcreceiptsample.socket.handler.CmsClientHandler;
+import com.stagefive.kftcreceiptsample.socket.cms.decoder.CmsClientDecoder;
+import com.stagefive.kftcreceiptsample.socket.cms.encoder.CmsClientEncoder;
+import com.stagefive.kftcreceiptsample.socket.cms.handler.CmsClientHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;

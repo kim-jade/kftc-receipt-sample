@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.socket.encoder;
+package com.stagefive.kftcreceiptsample.socket.cms.encoder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

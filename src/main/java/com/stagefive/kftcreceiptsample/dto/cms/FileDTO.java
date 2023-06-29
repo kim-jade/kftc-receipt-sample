@@ -1,6 +1,6 @@
-package com.stagefive.kftcreceiptsample.dto;
+package com.stagefive.kftcreceiptsample.dto.cms;
 
-import com.stagefive.kftcreceiptsample.dto.common.CommonLayout;
+import com.stagefive.kftcreceiptsample.dto.cms.common.CommonLayout;
 
 /**
  * 0630 / 0640 전문 처리를 담당하는 DTO

@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.socket.config;
+package com.stagefive.kftcreceiptsample.socket.cms.config;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
@@ -16,15 +16,15 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class CmsServerConfiguration {
 
-  @Value("${banking.server.host}")
+  @Value("${cms.server.host}")
   private String host;
-  @Value("${banking.server.port}")
+  @Value("${cms.server.port}")
   private int port;
-  @Value("${banking.server.boss-count}")
+  @Value("${cms.server.boss-count}")
   private int bossCount;
-  @Value("${banking.server.worker-count}")
+  @Value("${cms.server.worker-count}")
   private int workerCount;
-  @Value("${banking.server.backlog}")
+  @Value("${cms.server.backlog}")
   private int backlog;
 
   @Bean

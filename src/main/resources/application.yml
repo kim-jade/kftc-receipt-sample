@@ -1,7 +1,7 @@
 server:
   port: 8081
 
-banking:
+cms:
   server:
     host: 127.0.0.1
     port: 8888

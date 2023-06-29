@@ -1,6 +1,6 @@
 package com.stagefive.kftcreceiptsample;
 
-import com.stagefive.kftcreceiptsample.dto.common.CommonLayout;
+import com.stagefive.kftcreceiptsample.dto.cms.common.CommonLayout;
 
 public class ByteParsingTest {
   public static void main(String[] args) {

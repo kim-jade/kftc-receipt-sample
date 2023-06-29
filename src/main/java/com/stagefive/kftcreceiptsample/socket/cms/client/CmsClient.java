@@ -1,6 +1,6 @@
-package com.stagefive.kftcreceiptsample.socket.client;
+package com.stagefive.kftcreceiptsample.socket.cms.client;
 
-import com.stagefive.kftcreceiptsample.socket.config.CmsClientInitializer;
+import com.stagefive.kftcreceiptsample.socket.cms.config.CmsClientInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.nio.NioEventLoopGroup;

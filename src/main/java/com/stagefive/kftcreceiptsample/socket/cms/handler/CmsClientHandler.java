@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.socket.handler;
+package com.stagefive.kftcreceiptsample.socket.cms.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

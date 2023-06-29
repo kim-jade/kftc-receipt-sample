@@ -1,6 +1,6 @@
-package com.stagefive.kftcreceiptsample.dto;
+package com.stagefive.kftcreceiptsample.dto.cms;
 
-import com.stagefive.kftcreceiptsample.dto.common.CommonLayout;
+import com.stagefive.kftcreceiptsample.dto.cms.common.CommonLayout;
 
 /**
  * 0300 전문

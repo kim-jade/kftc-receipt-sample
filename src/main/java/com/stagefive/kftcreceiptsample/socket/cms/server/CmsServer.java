@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.socket.server;
+package com.stagefive.kftcreceiptsample.socket.cms.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;

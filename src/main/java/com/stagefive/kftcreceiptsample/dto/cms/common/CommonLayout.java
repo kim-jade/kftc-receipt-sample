@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.dto.common;
+package com.stagefive.kftcreceiptsample.dto.cms.common;
 
 
 import java.util.Arrays;

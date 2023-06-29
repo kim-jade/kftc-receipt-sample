@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.service;
+package com.stagefive.kftcreceiptsample.service.cms;
 
 import org.springframework.stereotype.Service;
 
