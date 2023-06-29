@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@EnableScheduling
 public class KftcReceiptSampleApplication implements CommandLineRunner {
 
   private final CmsServer cmsServer;

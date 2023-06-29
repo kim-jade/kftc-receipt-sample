@@ -7,10 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CmsClientHandler extends SimpleChannelInboundHandler<byte[]> {
 
+  byte[] response;
+
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, byte[] msg) {
     // 파일 송신 (센터 -> 기관) 플로우
     String workType = new String(msg);
+    response = msg;
     switch (workType) {
       // 해당 요청일때는 별다른 응답 안함
       case "0610", "0310", "0320" -> {
@@ -38,6 +41,7 @@ public class CmsClientHandler extends SimpleChannelInboundHandler<byte[]> {
       }
     }
 
+    response = null;
     log.info("Received data: {}", new String(msg));
   }
 

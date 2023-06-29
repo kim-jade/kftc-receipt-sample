@@ -1,14 +1,13 @@
 package com.stagefive.kftcreceiptsample.socket.cms.handler;
 
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class CmsServerHandler extends SimpleChannelInboundHandler<byte[]> {
-
-  int callCount = 0;
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, byte[] msg) throws InterruptedException {
@@ -46,11 +45,11 @@ public class CmsServerHandler extends SimpleChannelInboundHandler<byte[]> {
 
       // 업무종료[보고] 요청이 왔을 때
       case "0610,1" -> {
-        System.out.println("업무 종료됨");
+        log.info("업무 종료됨");
       }
     }
 
-    System.out.println("Received data: " + new String(msg));
+    log.info("Received data: {}", new String(msg));
   }
 
   @Override
