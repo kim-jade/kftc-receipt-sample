@@ -8,3 +8,11 @@ cms:
     boss-count: 1
     worker-count: 1
     backlog: 1
+
+kftcvan:
+  server:
+    host: 127.0.0.1
+    port: 8889
+    boss-count: 1
+    worker-count: 1
+    backlog: 1

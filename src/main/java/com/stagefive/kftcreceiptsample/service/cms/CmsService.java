@@ -17,7 +17,7 @@ public class CmsService {
   @Value("${cms.server.port}")
   private int PORT;
 
-  @Scheduled(cron = "0/10 * * * * ?")
+//  @Scheduled(cron = "0/10 * * * * ?")
   public void run() {
     Bootstrap bootstrap = new Bootstrap();
     bootstrap.group(new NioEventLoopGroup())

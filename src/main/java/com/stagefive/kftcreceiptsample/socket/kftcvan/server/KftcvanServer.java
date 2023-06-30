@@ -1,4 +1,4 @@
-package com.stagefive.kftcreceiptsample.socket.cms.server;
+package com.stagefive.kftcreceiptsample.socket.kftcvan.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -7,20 +7,19 @@ import jakarta.annotation.PreDestroy;
 import java.net.InetSocketAddress;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class CmsServer {
-  private final ServerBootstrap cmsServerBootstrap;
-  private final InetSocketAddress cmsInetSocketAddress;
+public class KftcvanServer {
+  private final ServerBootstrap kftcvnServerBootstrap;
+  private final InetSocketAddress kftcvanInetSocketAddress;
   private Channel serverChannel;
 
   public void start() {
     try {
-      ChannelFuture serverChannelFuture = cmsServerBootstrap.bind(cmsInetSocketAddress).sync();
+      ChannelFuture serverChannelFuture = kftcvnServerBootstrap.bind(kftcvanInetSocketAddress).sync();
 
       serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
     }
