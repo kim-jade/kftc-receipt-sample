@@ -1,5 +1,6 @@
 package com.stagefive.kftcreceiptsample.socket.cms.handler;
 
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CmsClientHandler extends SimpleChannelInboundHandler<byte[]> {
 
   byte[] response;
+  String result;
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, byte[] msg) {
@@ -56,6 +58,7 @@ public class CmsClientHandler extends SimpleChannelInboundHandler<byte[]> {
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    result = "123123";
     log.info("Channel Inactivated");
   }
 }

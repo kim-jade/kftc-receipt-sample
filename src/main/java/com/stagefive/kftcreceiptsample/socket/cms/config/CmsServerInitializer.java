@@ -12,12 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CmsServerInitializer extends ChannelInitializer<SocketChannel> {
+
+  private final CmsServerHandler cmsServerHandler;
+
   @Override
   protected void initChannel(SocketChannel ch) {
     ChannelPipeline pipeline = ch.pipeline();
 
     pipeline.addLast(new CmsServerDecoder());
     pipeline.addLast(new CmsServerEncoder());
-    pipeline.addLast(new CmsServerHandler());
+    pipeline.addLast(cmsServerHandler);
   }
 }

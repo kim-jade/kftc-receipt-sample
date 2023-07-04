@@ -22,7 +22,7 @@ public class KftcReceiptSampleApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-//    cmsServer.start();
+    cmsServer.start();
     kftcvanServer.start();
   }
 }

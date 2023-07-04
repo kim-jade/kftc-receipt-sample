@@ -22,7 +22,7 @@ public class CmsServer {
     try {
       ChannelFuture serverChannelFuture = cmsServerBootstrap.bind(cmsInetSocketAddress).sync();
 
-      serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
+      serverChannel = serverChannelFuture.channel();
     }
     catch (InterruptedException e) {
       e.printStackTrace();

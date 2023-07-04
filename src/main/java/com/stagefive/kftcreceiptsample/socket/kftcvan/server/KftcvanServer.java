@@ -3,6 +3,7 @@ package com.stagefive.kftcreceiptsample.socket.kftcvan.server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import java.net.InetSocketAddress;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class KftcvanServer {
     try {
       ChannelFuture serverChannelFuture = kftcvnServerBootstrap.bind(kftcvanInetSocketAddress).sync();
 
-      serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
+      serverChannel = serverChannelFuture.channel();
     }
     catch (InterruptedException e) {
       e.printStackTrace();

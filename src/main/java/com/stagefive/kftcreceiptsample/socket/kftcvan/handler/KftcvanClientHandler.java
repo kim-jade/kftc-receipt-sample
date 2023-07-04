@@ -20,22 +20,22 @@ public class KftcvanClientHandler extends SimpleChannelInboundHandler<String> {
 
       // 파일정보확인[지시]
       case "0630" -> {
-        ctx.writeAndFlush("0640".getBytes()); // 파일정보확인[보고]
+        ctx.writeAndFlush("0640"); // 파일정보확인[보고]
       }
 
       // 결번확인[지시]
       case "0620" -> {
-        ctx.writeAndFlush("0300".getBytes()); // 결번확인[보고]
+        ctx.writeAndFlush("0300"); // 결번확인[보고]
       }
 
       // 파일전송완료[지시], 업무종료[지시]
       case "0600,0" -> {
-        ctx.writeAndFlush("0610,0".getBytes()); // 파일전송완료[보고]
+        ctx.writeAndFlush("0610,0"); // 파일전송완료[보고]
       }
 
       // 파일전송완료[지시], 업무종료[지시]
       case "0600,1" -> {
-        ctx.writeAndFlush("0610,1".getBytes()); // 파일전송완료[보고], 업무종료[보고]
+        ctx.writeAndFlush("0610,1"); // 파일전송완료[보고], 업무종료[보고]
         ctx.close();
       }
     }
@@ -47,7 +47,7 @@ public class KftcvanClientHandler extends SimpleChannelInboundHandler<String> {
   @Override
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
     // 클라이언트가 서버에 연결되면 데이터 전송
-//    byte[] data = "업무 개시 전문".getBytes();
+//    byte[] data = "업무 개시 전문";
 //    ctx.writeAndFlush(data);
 
     log.info("Channel Activated");

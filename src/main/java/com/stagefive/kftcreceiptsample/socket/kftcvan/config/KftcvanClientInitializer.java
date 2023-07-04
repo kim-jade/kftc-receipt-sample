@@ -1,7 +1,5 @@
 package com.stagefive.kftcreceiptsample.socket.kftcvan.config;
 
-import com.stagefive.kftcreceiptsample.socket.kftcvan.decoder.KftcvanClientDecoder;
-import com.stagefive.kftcreceiptsample.socket.kftcvan.encoder.KftcvanClientEncoder;
 import com.stagefive.kftcreceiptsample.socket.kftcvan.handler.KftcvanClientHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

@@ -26,21 +26,21 @@ public class KftcvanServerHandler extends SimpleChannelInboundHandler<String> {
 
       // 파일정보확인[보고] 요청이 왔을 때
       case "0640" -> {
-        ctx.writeAndFlush("0320".getBytes()); // DATA전송
+        ctx.writeAndFlush("0320"); // DATA전송
         Thread.sleep(1000);
-        ctx.writeAndFlush("0620".getBytes()); // 결번확인[지시]
+        ctx.writeAndFlush("0620"); // 결번확인[지시]
       }
 
       // 결번확인[보고] 요청이 왔을 때
       case "0300" -> {
-        ctx.writeAndFlush("0310".getBytes()); // 결번 DATA 전송
+        ctx.writeAndFlush("0310"); // 결번 DATA 전송
         Thread.sleep(1000);
-        ctx.writeAndFlush("0600,0".getBytes()); // 파일전송완료 [지시]
+        ctx.writeAndFlush("0600,0"); // 파일전송완료 [지시]
       }
 
       // 파일전송완료[보고] 요청이 왔을 때
       case "0610,0" -> {
-        ctx.writeAndFlush("0600,1".getBytes()); // 업무 종료 [지시]
+        ctx.writeAndFlush("0600,1"); // 업무 종료 [지시]
       }
 
       // 업무종료[보고] 요청이 왔을 때

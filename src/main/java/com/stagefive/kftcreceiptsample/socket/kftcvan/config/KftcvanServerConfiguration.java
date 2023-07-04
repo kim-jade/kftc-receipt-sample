@@ -29,10 +29,10 @@ public class KftcvanServerConfiguration {
   private int backlog;
 
   @Bean
-  public ServerBootstrap kftcvnServerBootstrap(KftcvanServerInitializer cmsServerInitializer) {
+  public ServerBootstrap kftcvnServerBootstrap(KftcvanServerInitializer kftcvanServerInitializer) {
     ServerBootstrap serverBootstrap = new ServerBootstrap();
     serverBootstrap.group(kftcvanBossGroup(), kftcvanWorkerGroup()).channel(NioServerSocketChannel.class)
-        .handler(new LoggingHandler(LogLevel.DEBUG)).childHandler(cmsServerInitializer)
+        .handler(new LoggingHandler(LogLevel.DEBUG)).childHandler(kftcvanServerInitializer)
         .option(ChannelOption.SO_BACKLOG, backlog);
 
     return serverBootstrap;
