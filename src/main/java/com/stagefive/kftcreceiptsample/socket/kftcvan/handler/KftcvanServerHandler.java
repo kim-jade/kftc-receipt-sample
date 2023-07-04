@@ -2,12 +2,17 @@ package com.stagefive.kftcreceiptsample.socket.kftcvan.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import java.util.Random;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
+@Getter
 public class KftcvanServerHandler extends SimpleChannelInboundHandler<String> {
+
+  String response;
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, String msg) throws InterruptedException {
@@ -47,9 +52,16 @@ public class KftcvanServerHandler extends SimpleChannelInboundHandler<String> {
       case "0610,1" -> {
         log.info("업무 종료됨");
       }
+
+      case "check_card" -> {
+        String[] cardResult = {"유효", "분실카드", "도난카드"};
+        Random random = new Random();
+        int index = random.nextInt(cardResult.length);
+        ctx.writeAndFlush(cardResult[index]);
+      }
     }
 
-    log.info("Received data: {}", new String(msg));
+    log.info("Received data: {}", msg);
   }
 
   @Override

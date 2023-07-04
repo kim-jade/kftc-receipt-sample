@@ -2,9 +2,11 @@ package com.stagefive.kftcreceiptsample.socket.kftcvan.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
 public class KftcvanClientHandler extends SimpleChannelInboundHandler<String> {
 
   String response;
@@ -38,9 +40,14 @@ public class KftcvanClientHandler extends SimpleChannelInboundHandler<String> {
         ctx.writeAndFlush("0610,1"); // 파일전송완료[보고], 업무종료[보고]
         ctx.close();
       }
+
+      default -> {
+        response = msg;
+      }
     }
 
-    response = null;
+    if (response != null) ctx.close();
+
     log.info("Received data: {}", msg);
   }
 
@@ -55,6 +62,7 @@ public class KftcvanClientHandler extends SimpleChannelInboundHandler<String> {
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    System.out.println(response);
     log.info("Channel Inactivated");
   }
 }
