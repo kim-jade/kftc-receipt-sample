@@ -1,11 +1,17 @@
 package com.stagefive.kftcreceiptsample;
 
-import com.stagefive.kftcreceiptsample.dto.cms.common.CommonLayout;
+import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
 public class ByteParsingTest {
-  public static void main(String[] args) {
-    byte[] data = "FTEABCDEFGHABCDAAABCDEFGHABC".getBytes();
-    CommonLayout commonLayout = new CommonLayout(data);
-    System.out.println(commonLayout);
+
+  @Test
+  public void test() {
+    byte[] data2 = "ABC".getBytes();
+    byte[] data3 = "123".getBytes();
+    System.out.println(new String(ParserUtil.formatData(data2, 5, false)));
+    System.out.println(new String(ParserUtil.formatData(data3, 5, true)));
+    System.out.println(Arrays.toString(ParserUtil.formatData(data3, 5, true)));
   }
 }

@@ -1,8 +1,7 @@
 package com.stagefive.kftcreceiptsample.enums;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,14 +26,15 @@ public enum ResponseCode {
 
   final String code;
 
-  private static final Map<String, String> fieldMap;
+  private static final Map<String, ResponseCode> BY_CODE_MAP = new HashMap<>();
 
   static {
-    fieldMap = Arrays.stream(ResponseCode.values())
-        .collect(Collectors.toMap(ResponseCode::name, ResponseCode::getCode));
+    for (ResponseCode responseCode : ResponseCode.values()) {
+      BY_CODE_MAP.put(responseCode.getCode(), responseCode);
+    }
   }
 
-  public static String findByCode(String code) {
-    return fieldMap.getOrDefault(code, null);
+  public static ResponseCode getByCode(String name) {
+    return BY_CODE_MAP.get(name);
   }
 }

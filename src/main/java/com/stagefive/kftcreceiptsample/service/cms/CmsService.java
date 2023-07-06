@@ -1,41 +1,27 @@
 package com.stagefive.kftcreceiptsample.service.cms;
 
-import com.stagefive.kftcreceiptsample.socket.cms.config.CmsClientInitializer;
-import io.netty.bootstrap.Bootstrap;
+import com.stagefive.kftcreceiptsample.socket.cms.client.CmsClient;
 import io.netty.channel.Channel;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CmsService {
 
-  @Value("${cms.server.host}")
-  private String HOST;
-  @Value("${cms.server.port}")
-  private int PORT;
+  private final CmsClient cmsClient;
 
 //  @Scheduled(cron = "0/10 * * * * ?")
   public void run() {
-    Bootstrap bootstrap = new Bootstrap();
-    bootstrap.group(new NioEventLoopGroup())
-        .channel(NioSocketChannel.class)
-        .handler(new CmsClientInitializer());
-
-    Channel channel;
-
-    try {
-      channel = bootstrap.connect(HOST, PORT).sync().channel();
+    Channel channel = cmsClient.connectCmsServer();
 
       // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
+    try {
       channel.writeAndFlush("0600".getBytes()).sync();
-
-      // 연결 종료
-      channel.closeFuture().sync();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
+
   }
 
   public byte[] processData(byte[] data) throws InterruptedException {
