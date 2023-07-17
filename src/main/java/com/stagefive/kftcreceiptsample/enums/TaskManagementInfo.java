@@ -13,8 +13,8 @@ import lombok.Getter;
 public enum TaskManagementInfo {
 
   START_TASK("001"), // 업무 개시
-  FILE_EXIST_SAR_COMPLETE("090"), // 파일 송수신 완료( 송신할 파일 존재 )
-  FILE_NOT_EXIST_SAR_COMPLETE("310"), // 파일 송수신 완료( 송신할 파일 없음 )
+  FILE_EXIST_SAR_COMPLETE("002"), // 파일 송수신 완료( 송신할 파일 존재 )
+  FILE_NOT_EXIST_SAR_COMPLETE("003"), // 파일 송수신 완료( 송신할 파일 없음 )
   END_TASK("004"); // 업무 종료
 
   private final String code;

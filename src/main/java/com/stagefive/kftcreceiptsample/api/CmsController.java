@@ -1,7 +1,10 @@
 package com.stagefive.kftcreceiptsample.api;
 
 
+import com.stagefive.kftcreceiptsample.entity.NextDayTransferRes;
+import com.stagefive.kftcreceiptsample.repository.TransferRequestReqRepository;
 import com.stagefive.kftcreceiptsample.service.cms.CmsService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +19,7 @@ public class CmsController {
 
   private final CmsService cmsService;
   private final WebClient webClient;
+  private final TransferRequestReqRepository transferRequestReqRepository;
 
   @PostMapping()
   public void run() {
@@ -28,5 +32,20 @@ public class CmsController {
         .uri("https://shop-services.dev.stagefive.io/management/banners")
         .retrieve()
         .bodyToMono(Object.class);
+  }
+
+  @PostMapping("/create/table")
+  public void createTable() {
+    transferRequestReqRepository.createTableByDate();
+  }
+
+  @GetMapping("/get/table")
+  public List<NextDayTransferRes> getTable() {
+    return transferRequestReqRepository.findAll();
+  }
+
+  @PostMapping("/handler/test")
+  public void handlerTest() {
+    cmsService.startAutoPaymentAgreementSendTask();
   }
 }

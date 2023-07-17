@@ -3,15 +3,18 @@ package com.stagefive.kftcreceiptsample.dto.cms;
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.enums.TaskManagementInfo;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import com.stagefive.kftcreceiptsample.util.Util;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 0600 / 0610 전문 처리를 담당하는 DTO
- * 업무개시 요구(0060) / 응답(0610)
+ * 업무개시 요구(0600) / 응답(0610)
  * 업무종료 요구(0600) / 응답(0610)
  * 파일전송완료 요구(0600) / 응답(0610)
  */
 @Getter
+@NoArgsConstructor
 public class TaskDTO extends CommonHeader {
   // 전문 전송 일시
   private String timestamp;
@@ -42,5 +45,12 @@ public class TaskDTO extends CommonHeader {
     ParserUtil.copyBytes(this.senderPassword.getBytes(), result, offset, 16);
 
     return result;
+  }
+
+  public void setStartTaskRequestData() {
+    this.timestamp = Util.getNowDateToString("MMddHHmmss");
+    this.taskManagementInfo = TaskManagementInfo.START_TASK;
+    this.senderName = "jade";
+    this.senderPassword = "jadePassword";
   }
 }

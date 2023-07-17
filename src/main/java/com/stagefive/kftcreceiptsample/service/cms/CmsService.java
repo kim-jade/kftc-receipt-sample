@@ -1,6 +1,12 @@
 package com.stagefive.kftcreceiptsample.service.cms;
 
+import com.stagefive.kftcreceiptsample.dto.cms.TaskDTO;
+import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
+import com.stagefive.kftcreceiptsample.enums.SendReceiveFlag;
+import com.stagefive.kftcreceiptsample.enums.TaskType;
+import com.stagefive.kftcreceiptsample.enums.TransactionCode;
 import com.stagefive.kftcreceiptsample.socket.cms.client.CmsClient;
+import com.stagefive.kftcreceiptsample.socket.cms.handler.CmsAutoPaymentAgreementHandler;
 import io.netty.channel.Channel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,57 +16,46 @@ import org.springframework.stereotype.Service;
 public class CmsService {
 
   private final CmsClient cmsClient;
+  private final CmsAutoPaymentAgreementHandler cmsAutoPaymentAgreementHandler;
 
-//  @Scheduled(cron = "0/10 * * * * ?")
+  //  @Scheduled(cron = "0/10 * * * * ?")
   public void run() {
     Channel channel = cmsClient.connectCmsServer();
+    channel.pipeline().addLast();
 
-      // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
+    // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
     try {
-      channel.writeAndFlush("0600".getBytes()).sync();
+      TaskDTO taskDTO = new TaskDTO();
+      taskDTO.setRequestHeader();
+      taskDTO.setStartTaskRequestData();
+      taskDTO.setTypeCode(TaskType.TASK_MANAGEMENT);
+      channel.writeAndFlush(taskDTO.getByte()).sync();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-
   }
 
-  public byte[] processData(byte[] data) throws InterruptedException {
-    // 파일 송신 (센터 -> 기관) 플로우
-    String workType = new String(data);
-    byte[] result = null;
-    switch (workType) {
+  /**
+   * 자동 납부 동의자료 송신 업무 개시
+   */
+  public void startAutoPaymentAgreementSendTask() {
+    // cms 서버 연결
+    Channel channel = cmsClient.connectCmsServer();
+    // 자동 납부 동의자료 핸들러 추가
+    channel.pipeline().addLast(cmsAutoPaymentAgreementHandler);
 
-      // 업무개시[요구] 요청이 왔을 때
-      case "0600" -> {
-        result = "0610".getBytes();// 업무개사[통보]
-        Thread.sleep(500);
-        result = "0630".getBytes(); // 파일정보확인[지시]
-      }
+    // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
+    try {
+      TaskDTO taskDTO = new TaskDTO();
+      taskDTO.setRequestHeader();
+      taskDTO.setTypeCode(TaskType.TASK_MANAGEMENT);
+      taskDTO.setByteCount(1000);
+      taskDTO.setTransactionCode(TransactionCode.CENTER_RECEIVE);
+      taskDTO.setSendReceiveFlag(SendReceiveFlag.ENTERPRISE_OCCUR);
 
-      // 파일정보확인[보고] 요청이 왔을 때
-      case "0640" -> {
-        result = "0320".getBytes(); // DATA전송
-        Thread.sleep(500);
-        result = "0620".getBytes(); // 결번확인[지시]
-      }
-
-      // 결번확인[보고] 요청이 왔을 때
-      case "0300" -> {
-        result = "0310".getBytes(); // 결번 DATA 전송
-        Thread.sleep(500);
-        result = "0600,0".getBytes(); // 파일전송완료 [지시]
-      }
-
-      // 파일전송완료[보고] 요청이 왔을 때
-      case "0610,0" -> {
-        result = "0600,1".getBytes(); // 업무 종료 [지시]
-      }
-
-      // 업무종료[보고] 요청이 왔을 때
-      case "0610,1" -> {
-      }
+      channel.writeAndFlush(taskDTO.getByte()).sync();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
     }
-
-    return result;
   }
 }

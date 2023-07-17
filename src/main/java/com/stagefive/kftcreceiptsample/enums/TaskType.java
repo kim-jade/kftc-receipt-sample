@@ -33,7 +33,7 @@ public enum TaskType {
   // DATA 전문
   DATA("0320"),
   // 결번자료 내역 전송
-  MISS_DATA_LIST_SEND("0300"),
+  MISS_DATA_RESPONSE("0300"),
   // 결번 DATA 전송
   MISS_DATA_SEND("0310");
 

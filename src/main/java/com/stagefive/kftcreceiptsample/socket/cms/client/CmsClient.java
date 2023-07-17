@@ -20,23 +20,7 @@ public final class CmsClient {
   @Value("${cms.server.port}")
   private int PORT;
 
-  public  void main(String[] args) {
-    Bootstrap bootstrap = new Bootstrap();
-    bootstrap.group(new NioEventLoopGroup())
-        .channel(NioSocketChannel.class)
-        .handler(new CmsClientInitializer());
-
-    Channel ch;
-
-    try {
-      ch = bootstrap.connect(HOST, PORT).sync().channel();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
-
-    // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
-    ch.writeAndFlush("0600".getBytes());
-  }
+  private final CmsClientInitializer cmsClientInitializer;
 
   public Channel connectCmsServer() {
     EventLoopGroup group = new NioEventLoopGroup();
@@ -46,7 +30,7 @@ public final class CmsClient {
       Bootstrap bootstrap = new Bootstrap();
       bootstrap.group(group)
           .channel(NioSocketChannel.class)
-          .handler(new CmsClientInitializer());
+          .handler(cmsClientInitializer);
 
       ChannelFuture future = bootstrap.connect(HOST, PORT).sync();
       channel = future.channel();

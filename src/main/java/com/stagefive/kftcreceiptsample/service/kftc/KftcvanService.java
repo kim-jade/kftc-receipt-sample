@@ -6,11 +6,15 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class KftcvanService {
+
+  private final NioEventLoopGroup kftcvanBossGroup;
 
   @Value("${kftcvan.server.host}")
   private String HOST;
@@ -41,7 +45,7 @@ public class KftcvanService {
 
   public String checkInvalidCard() {
     Bootstrap bootstrap = new Bootstrap();
-    bootstrap.group(new NioEventLoopGroup())
+    bootstrap.group(kftcvanBossGroup)
         .channel(NioSocketChannel.class)
         .handler(new KftcvanClientInitializer());
 
@@ -56,9 +60,8 @@ public class KftcvanService {
 
       while (true) {
         KftcvanClientHandler handler = channel.pipeline().get(KftcvanClientHandler.class);
-        String receivedMessage = handler.getResponse();
-        if (receivedMessage != null) {
-          response = receivedMessage;
+        if (handler != null && handler.getResponse() != null) {
+          response = handler.getResponse();
           break;
         }
       }

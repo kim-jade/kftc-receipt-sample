@@ -1,6 +1,6 @@
 package com.stagefive.kftcreceiptsample.socket.cms.handler;
 
-import com.stagefive.kftcreceiptsample.service.cms.CmsService;
+import com.stagefive.kftcreceiptsample.service.cms.CmsParserService;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 @Sharable
 public class CmsServerHandler extends SimpleChannelInboundHandler<byte[]> {
 
-  private final CmsService cmsService;
+  private final CmsParserService cmsParserService;
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, byte[] msg) throws InterruptedException {
     // 받은 데이터 처리
 
-    byte[] responseData = cmsService.processData(msg);
+    byte[] responseData = cmsParserService.serverProcessData(msg);
     if (responseData != null) {
       ctx.writeAndFlush(responseData);
     } else {

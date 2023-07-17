@@ -2,11 +2,13 @@ package com.stagefive.kftcreceiptsample.dto.cms;
 
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import lombok.Getter;
 
 /**
  * 0300 전문
  * 결번 확인 응답
  */
+@Getter
 public class MissingCheckResponseDTO extends CommonHeader {
   // block의 순차적 번호
   private int blockNo;
@@ -15,18 +17,18 @@ public class MissingCheckResponseDTO extends CommonHeader {
   // 결번 개수
   private int missingCount;
   // 결번 확인
-  private int missingConfirm;
+  private String missingConfirm;
 
   public MissingCheckResponseDTO(byte[] data) {
     super(data);
     this.blockNo = ParserUtil.getIntFromByteArray(data, 32, 36);
     this.finalSequenceNo = ParserUtil.getIntFromByteArray(data, 36, 39);
     this.missingCount = ParserUtil.getIntFromByteArray(data, 39, 42);
-    this.missingConfirm = ParserUtil.getIntFromByteArray(data, 42, 142);
+    this.missingConfirm = ParserUtil.getStringFromByteArray(data, 42, 1041); // 최대 999개
   }
 
   public byte[] getByte() {
-    byte[] result = new byte[super.getByte().length + 300];
+    byte[] result = new byte[super.getByte().length + 1041];
     byte[] header = super.getByte();
     int offset = 0;
 

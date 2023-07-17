@@ -2,12 +2,14 @@ package com.stagefive.kftcreceiptsample.dto.cms;
 
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import lombok.Getter;
 
 /**
  * 0630 / 0640 전문 처리를 담당하는 DTO
  * 파일 정보 확인 요구(0630) / 응답(0640)
  */
 
+@Getter
 public class FileInfoDTO extends CommonHeader {
 
   // 파일명

@@ -16,7 +16,7 @@ public enum ResponseCode {
   SYSTEM_ERROR("090"), // 시스템 장애 (비밀번호 오류횟수 초과인 경우도 해당)
   SENDER_ERROR("310"), // 송신자명 오류
   SENDER_PASSWORD_ERROR("320"), // 송신자 암호 오류
-  SEND_SUCCESS("630"), // 기 전송완료
+  ALREADY_SEND("630"), // 기 전송완료
   UNREGISTERED_BUSINESS("631"), // 미등록 업무
   INVALID_FILENAME("632"), // 비정상 파일명
   INVALID_BYTE_COUNT("633"), // 비정상 전문 Byte 수
