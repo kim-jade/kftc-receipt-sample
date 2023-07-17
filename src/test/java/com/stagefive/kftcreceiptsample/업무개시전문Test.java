@@ -2,24 +2,26 @@ package com.stagefive.kftcreceiptsample;
 
 import com.stagefive.kftcreceiptsample.dto.cms.TaskDTO;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class 업무개시전문Test {
-    // header 정보
-    String 전문바이트수 = "0012";
-    String 업무구분코드 = "FTE";
-    String 기관코드 = "ABCDEFGH";
-    String 전문종별코드 = "0600";
-    String 거래구분코드 = "R";
-    String 송수신FLAG = "C";
-    String 파일명 = "        ";
-    String 응답코드 = "000";
 
-    // 0600 / 0610 전문 개별부
-    String 전문전송일시 = "0705235959";
-    String 업무관리정보 = "001";  // 업무개시
-    String 송신자명 = "manager             ";
-    String 송신자암호 = "password        ";
+  // header 정보
+  String 전문바이트수 = "0012";
+  String 업무구분코드 = "FTE";
+  String 기관코드 = "ABCDEFGH";
+  String 전문종별코드 = "0600";
+  String 거래구분코드 = "R";
+  String 송수신FLAG = "C";
+  String 파일명 = "        ";
+  String 응답코드 = "000";
+
+  // 0600 / 0610 전문 개별부
+  String 전문전송일시 = "0705235959";
+  String 업무관리정보 = "001";  // 업무개시
+  String 송신자명 = "manager             ";
+  String 송신자암호 = "password        ";
 
   @Test
   public void 업무개시전문테스트() {

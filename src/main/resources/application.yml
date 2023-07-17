@@ -2,6 +2,9 @@ server:
   port: 8081
 
 cms:
+  id: 9964238654
+  verification-key-1: 6465911134
+  verification-key-2: 5911135911
   server:
     host: 127.0.0.1
     port: 8888
@@ -16,3 +19,15 @@ kftcvan:
     boss-count: 1
     worker-count: 1
     backlog: 1
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/kftc_test?useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
