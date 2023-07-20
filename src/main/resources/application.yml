@@ -2,9 +2,12 @@ server:
   port: 8081
 
 cms:
-  id: 9964238654
+#  id: 9964238654
+  id: 9912345678
   verification-key-1: 6465911134
   verification-key-2: 5911135911
+  sender-name: Honggildong
+  sender-password: 123ABC
   server:
     host: 127.0.0.1
     port: 8888

@@ -2,11 +2,15 @@ package com.stagefive.kftcreceiptsample.dto.cms;
 
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 0620 전문
  * 결번 확인 요구
  */
+@NoArgsConstructor
+@Setter
 public class MissingCheckRequestDTO extends CommonHeader {
   // block의 순차적 번호
   private int blockNo;

@@ -12,7 +12,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TransactionCode {
 
+  // 센터에서 전문을 송신
   CENTER_SEND("R"),
+  // 센터에서가 전문을 수신
   CENTER_RECEIVE("S");
 
   private final String code;

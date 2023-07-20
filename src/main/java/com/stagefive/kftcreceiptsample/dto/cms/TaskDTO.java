@@ -1,11 +1,14 @@
 package com.stagefive.kftcreceiptsample.dto.cms;
 
+import com.stagefive.kftcreceiptsample.constants.CmsConstants;
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.enums.TaskManagementInfo;
+import com.stagefive.kftcreceiptsample.util.EncryptionUtil;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
 import com.stagefive.kftcreceiptsample.util.Util;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 0600 / 0610 전문 처리를 담당하는 DTO
@@ -14,7 +17,7 @@ import lombok.NoArgsConstructor;
  * 파일전송완료 요구(0600) / 응답(0610)
  */
 @Getter
-@NoArgsConstructor
+@Setter
 public class TaskDTO extends CommonHeader {
   // 전문 전송 일시
   private String timestamp;
@@ -24,6 +27,12 @@ public class TaskDTO extends CommonHeader {
   private String senderName;
   // 송신자 암호
   private String senderPassword;
+
+  public TaskDTO() {
+    this.timestamp = Util.getNowDateToString("MMddHHmmss");
+    this.senderName = CmsConstants.SENDER_NAME;
+    this.senderPassword = EncryptionUtil.generateSenderPassword();
+  }
 
   public TaskDTO(byte[] data) {
     super(data);

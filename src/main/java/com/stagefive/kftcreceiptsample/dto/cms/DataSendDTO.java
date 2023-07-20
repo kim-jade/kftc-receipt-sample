@@ -2,11 +2,15 @@ package com.stagefive.kftcreceiptsample.dto.cms;
 
 import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.util.ParserUtil;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 0320 / 0310 전문
  * Data 전송, 결번 Data 전송
  */
+@NoArgsConstructor
+@Setter
 public class DataSendDTO extends CommonHeader {
 
   // block의 순차적 번호

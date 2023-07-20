@@ -3,7 +3,7 @@ package com.stagefive.kftcreceiptsample.api;
 
 import com.stagefive.kftcreceiptsample.entity.NextDayTransferRes;
 import com.stagefive.kftcreceiptsample.repository.TransferRequestReqRepository;
-import com.stagefive.kftcreceiptsample.service.cms.CmsService;
+import com.stagefive.kftcreceiptsample.service.cms.CmsBatchService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequiredArgsConstructor
 public class CmsController {
 
-  private final CmsService cmsService;
+  private final CmsBatchService cmsService;
   private final WebClient webClient;
   private final TransferRequestReqRepository transferRequestReqRepository;
 

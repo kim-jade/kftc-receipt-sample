@@ -1,6 +1,7 @@
 package com.stagefive.kftcreceiptsample.dto.cms.common;
 
 
+import com.stagefive.kftcreceiptsample.constants.CmsConstants;
 import com.stagefive.kftcreceiptsample.enums.ResponseCode;
 import com.stagefive.kftcreceiptsample.enums.SendReceiveFlag;
 import com.stagefive.kftcreceiptsample.enums.TaskType;
@@ -22,7 +23,7 @@ public class CommonHeader {
   // 업무 구분 코드
   private String businessTypeCode;
   // 기관 코드
-  private String institutionCode;
+  private String enterpriseId;
   // 전문 종별 코드
   private TaskType typeCode;
   // 거래 구분 코드
@@ -35,10 +36,9 @@ public class CommonHeader {
   private ResponseCode responseCode;
 
   public void setRequestHeader() {
-    this.businessTypeCode = "FTE";
-    this.institutionCode = "STAGFIVE";
-//    this.transactionCode = "R"; // R: 센터 수신업무, S: 센터 송신업무
-//    this.sendReceiveFlag = "E"; // C: 센터에서 전문을 발생할 시, E: 기관에서 전문을 발생할 시
+    this.businessTypeCode = CmsConstants.BUSINESS_TYPE_CODE;
+    this.enterpriseId = CmsConstants.ENTERPRISE_ID;
+    this.sendReceiveFlag = SendReceiveFlag.ENTERPRISE_OCCUR; // C: 센터에서 전문을 발생할 시, E: 기관에서 전문을 발생할 시
     this.fileName = Util.createSpaceString(8);
     this.responseCode = ResponseCode.SUCCESS; //REQUEST 전문(지시 및 요구전문)에는 "000"을 SET
   }
@@ -46,7 +46,7 @@ public class CommonHeader {
   public CommonHeader(byte[] data) {
     this.byteCount = ParserUtil.getIntFromByteArray(data, 0, 4);
     this.businessTypeCode = ParserUtil.getStringFromByteArray(data, 4, 7);
-    this.institutionCode = ParserUtil.getStringFromByteArray(data, 7, 15);
+    this.enterpriseId = ParserUtil.getStringFromByteArray(data, 7, 15);
     this.typeCode = TaskType.getByCode(ParserUtil.getStringFromByteArray(data, 15, 19));
     this.transactionCode = TransactionCode.getByCode(ParserUtil.getStringFromByteArray(data, 19, 20));
     this.sendReceiveFlag = SendReceiveFlag.getByCode(ParserUtil.getStringFromByteArray(data, 20, 21));
@@ -60,7 +60,7 @@ public class CommonHeader {
 
     offset = ParserUtil.copyBytes(String.valueOf(this.byteCount).getBytes(), result, offset, 4);
     offset = ParserUtil.copyBytes(this.businessTypeCode.getBytes(), result, offset, 3);
-    offset = ParserUtil.copyBytes(this.institutionCode.getBytes(), result, offset, 8);
+    offset = ParserUtil.copyBytes(this.enterpriseId.getBytes(), result, offset, 8);
     offset = ParserUtil.copyBytes(this.typeCode.getCode().getBytes(), result, offset, 4);
     offset = ParserUtil.copyBytes(this.transactionCode.getCode().getBytes(), result, offset, 1);
     offset = ParserUtil.copyBytes(this.sendReceiveFlag.getCode().getBytes(), result, offset, 1);

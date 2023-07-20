@@ -1,7 +1,6 @@
 package com.stagefive.kftcreceiptsample.service.cms;
 
 import com.stagefive.kftcreceiptsample.dto.cms.TaskDTO;
-import com.stagefive.kftcreceiptsample.dto.cms.common.CommonHeader;
 import com.stagefive.kftcreceiptsample.enums.SendReceiveFlag;
 import com.stagefive.kftcreceiptsample.enums.TaskType;
 import com.stagefive.kftcreceiptsample.enums.TransactionCode;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CmsService {
+public class CmsBatchService {
 
   private final CmsClient cmsClient;
   private final CmsAutoPaymentAgreementHandler cmsAutoPaymentAgreementHandler;
@@ -46,16 +45,19 @@ public class CmsService {
 
     // 소켓 처음 연결 후, 업무 개시 요구 전문 전송 (0600)
     try {
-      TaskDTO taskDTO = new TaskDTO();
-      taskDTO.setRequestHeader();
-      taskDTO.setTypeCode(TaskType.TASK_MANAGEMENT);
-      taskDTO.setByteCount(1000);
-      taskDTO.setTransactionCode(TransactionCode.CENTER_RECEIVE);
-      taskDTO.setSendReceiveFlag(SendReceiveFlag.ENTERPRISE_OCCUR);
-
-      channel.writeAndFlush(taskDTO.getByte()).sync();
+      channel.writeAndFlush(getStartAutoPaymentAgreementFile()).sync();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private byte[] getStartAutoPaymentAgreementFile() {
+    TaskDTO taskDTO = new TaskDTO();
+    taskDTO.setRequestHeader();
+    taskDTO.setTypeCode(TaskType.TASK_MANAGEMENT);
+    taskDTO.setByteCount(1000);
+    taskDTO.setTransactionCode(TransactionCode.CENTER_RECEIVE);
+    taskDTO.setSendReceiveFlag(SendReceiveFlag.ENTERPRISE_OCCUR);
+    return taskDTO.getByte();
   }
 }

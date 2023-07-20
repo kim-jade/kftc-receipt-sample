@@ -6,6 +6,7 @@ import com.stagefive.kftcreceiptsample.enums.TaskType;
 import org.springframework.stereotype.Service;
 
 @Service
+@Deprecated
 public class CmsParserService {
 
   public byte[] serverProcessData(byte[] data) throws InterruptedException {
