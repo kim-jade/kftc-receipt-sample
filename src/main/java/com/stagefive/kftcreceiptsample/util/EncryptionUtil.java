@@ -22,6 +22,27 @@ public class EncryptionUtil {
     verificationKey2 = value;
   }
 
+  private static String senderName;
+
+  @Value("${cms.sender-name}")
+  public void setSenderName(String value) {
+    senderName = value;
+  }
+
+  private static String senderPassword;
+
+  @Value("${cms.sender-password}")
+  public void setSenderPassword(String value) {
+    senderPassword = value;
+  }
+
+  private static String id;
+
+  @Value("${cms.id}")
+  public void setId(String value) {
+    id = value;
+  }
+
   /**
    * 맥 검증값 반환
    * @param content MAC 검증값 반환에 필요한 데이터
@@ -93,5 +114,47 @@ public class EncryptionUtil {
   private static String formatToString(Long data) {
     String result = String.format("%010d", data);
     return result.substring(result.length() - 10);
+  }
+
+  public static String generateSenderPassword() {
+    String plainPassword = repeatString(senderPassword, 16);
+    String encKey = String.format("%c%c", id.charAt(2), id.charAt(9))  // 기관코드 2자리(3, 10번째 값)
+//        + Util.getNowDateToString("yyMMdd") // 전송일 6자리(YYMMDD)
+        + "200602" // 전송일 6자리(YYMMDD)
+        + senderName.toUpperCase().substring(0, 8); // 전송자명 앞 8자리(대문자)
+
+    int[] result = new int[16];
+    for (int i = 0; i < result.length; i++) {
+      char p = plainPassword.charAt(i);
+      char k = encKey.charAt(i);
+
+      // 10미만일 경우 숫자. 이상일 경우 문자.
+      // 숫자 0∼9 : 9의 보수로 치환, 알파벳 A∼Z : 문자 ASCII값에 대한 100의 보수로 치환
+      int intP = Character.isDigit(p) ? 9 - (p - '0') : 100 - p;
+      int intK = Character.isDigit(k) ? 9 - (k - '0') : 100 - k;
+
+      // 36으로 나눈 나머지 값 연산
+      result[i] = (intP + intK) % 36;
+    }
+
+    StringBuilder resultString = new StringBuilder();
+    for (int data: result) {
+      // 10미만일 경우 숫자. 이상일 경우 문자.
+      // 숫자 0∼9 : 9의 보수로 치환, 알파벳 A∼Z : 문자 ASCII값에 대한 100의 보수로 치환
+      String resultChar = data < 10 ? String.valueOf(9 - data) : String.valueOf((char) (100 - data));
+      resultString.append(resultChar);
+    }
+
+    return resultString.toString();
+  }
+
+  private static String repeatString(String str, int length) {
+    StringBuilder stringBuilder = new StringBuilder();
+    int strLength = str.length();
+
+    for (int i = 0; i < length; i++) {
+      stringBuilder.append(str.charAt(i % strLength));
+    }
+    return stringBuilder.toString();
   }
 }
