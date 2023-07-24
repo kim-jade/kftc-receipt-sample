@@ -37,7 +37,7 @@ public class CommonHeader {
 
   public void setRequestHeader() {
     this.businessTypeCode = CmsConstants.BUSINESS_TYPE_CODE;
-    this.enterpriseId = CmsConstants.ENTERPRISE_ID;
+    this.enterpriseId = CmsConstants.ENTERPRISE_ID.substring(2);
     this.sendReceiveFlag = SendReceiveFlag.ENTERPRISE_OCCUR; // C: 센터에서 전문을 발생할 시, E: 기관에서 전문을 발생할 시
     this.fileName = Util.createSpaceString(8);
     this.responseCode = ResponseCode.SUCCESS; //REQUEST 전문(지시 및 요구전문)에는 "000"을 SET
@@ -58,14 +58,14 @@ public class CommonHeader {
     byte[] result = new byte[32];
     int offset = 0;
 
-    offset = ParserUtil.copyBytes(String.valueOf(this.byteCount).getBytes(), result, offset, 4);
-    offset = ParserUtil.copyBytes(this.businessTypeCode.getBytes(), result, offset, 3);
-    offset = ParserUtil.copyBytes(this.enterpriseId.getBytes(), result, offset, 8);
-    offset = ParserUtil.copyBytes(this.typeCode.getCode().getBytes(), result, offset, 4);
-    offset = ParserUtil.copyBytes(this.transactionCode.getCode().getBytes(), result, offset, 1);
-    offset = ParserUtil.copyBytes(this.sendReceiveFlag.getCode().getBytes(), result, offset, 1);
-    offset = ParserUtil.copyBytes(this.fileName.getBytes(), result, offset, 8);
-    ParserUtil.copyBytes(this.responseCode.getCode().getBytes(), result, offset, 3);
+    offset = ParserUtil.copyBytes(byteCount, result, offset, 4);
+    offset = ParserUtil.copyBytes(businessTypeCode, result, offset, 3);
+    offset = ParserUtil.copyBytes(enterpriseId, result, offset, 8);
+    offset = ParserUtil.copyBytes(typeCode.getCode(), result, offset, 4);
+    offset = ParserUtil.copyBytes(transactionCode.getCode(), result, offset, 1);
+    offset = ParserUtil.copyBytes(sendReceiveFlag.getCode(), result, offset, 1);
+    offset = ParserUtil.copyBytes(fileName, result, offset, 8);
+    ParserUtil.copyBytes(responseCode.getCode(), result, offset, 3);
 
     return result;
   }

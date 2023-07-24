@@ -57,6 +57,32 @@ public class ParserUtil {
     return offset + length;
   }
 
+  /**
+   * 전문을 파싱하고 파싱한 위치를 반환한다.
+   * @param source 값을 파싱할 원본 byte array
+   * @param destination 파싱한 값을 저장할 byte array
+   * @param offset 원본 byte array 에서 파싱을 시작할 offset
+   * @return 다음에 파싱할 byte array의 offset
+   */
+  public static int copyBytes(String source, byte[] destination, int offset, int length) {
+    byte[] formattedSource = formatData(source.getBytes(), length, false);
+    System.arraycopy(formattedSource, 0, destination, offset, length);
+    return offset + length;
+  }
+
+  /**
+   * 전문을 파싱하고 파싱한 위치를 반환한다.
+   * @param source 값을 파싱할 원본 byte array
+   * @param destination 파싱한 값을 저장할 byte array
+   * @param offset 원본 byte array 에서 파싱을 시작할 offset
+   * @return 다음에 파싱할 byte array의 offset
+   */
+  public static int copyBytes(int source, byte[] destination, int offset, int length) {
+    byte[] formattedSource = formatData(String.valueOf(source).getBytes(), length, true);
+    System.arraycopy(formattedSource, 0, destination, offset, length);
+    return offset + length;
+  }
+
   public static String byteToString(byte[] data) {
     return new String(data, Charset.forName("EUC-KR"));
   }
