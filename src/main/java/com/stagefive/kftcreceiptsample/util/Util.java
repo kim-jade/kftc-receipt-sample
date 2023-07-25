@@ -12,6 +12,11 @@ public class Util {
     return sdf.format(new Date());
   }
 
+  public static int getNowDateToInt(String format) {
+    SimpleDateFormat sdf = new SimpleDateFormat(format);
+    return Integer.parseInt(sdf.format(new Date()));
+  }
+
   public static String createSpaceString(int length) {
     return " ".repeat(length);
   }
